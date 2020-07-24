@@ -57,6 +57,8 @@ exports.findCustomer = (req, res, next) => {
 exports.addNewCustomerReport = (req, res, next) => {
   const customerId = req.params.id; 
   const newReports = req.body.reports;  
+  console.log(req.body.reports);
+  console.log(newReports);
 
   Customer.findById(customerId)
     .then(customer => {
@@ -69,6 +71,7 @@ exports.addNewCustomerReport = (req, res, next) => {
             console.log(err);
             return res.status(500).send({ error: "true", message: "Adding reports to customer failed." });
           } else {
+            console.log(result);
             return res.status(200).send({ error: "false", message: `Reports updated successfully for ${customer.name}` });
           }
         }
