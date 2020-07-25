@@ -56,9 +56,21 @@ exports.findCustomer = (req, res, next) => {
 // Add new customer report / sales
 exports.addNewCustomerReport = (req, res, next) => {
   const customerId = req.params.id; 
-  const newReports = req.body.reports;  
-  console.log(req.body.reports);
-  console.log(newReports);
+  const newReports = req.body;   
+
+  //const totalAmount = req.body.totalAmount;
+  //const paymentMade = req.body.paymentMade;
+  //const paid = req.body.paid;
+  //const soldAt = req.body.soldAt; 
+  //const dueDate;
+  //const paymentReceivedAt;
+  //if(paid === true){
+  //  dueDate = req.body.dueDate;
+  //} else { 
+  //  paymentReceivedAt = soldAt;
+  //}
+  
+
 
   Customer.findById(customerId)
     .then(customer => {
