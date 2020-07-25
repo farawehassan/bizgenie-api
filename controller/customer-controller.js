@@ -6,13 +6,32 @@ const e = require('express');
 exports.addNewCustomer = (req, res, next) => {
   const name = req.body.name;
   const phone = req.body.phone;
-  const reports = req.body.reports;  
+
+  //const reports = req.body.reports;  
+  const report = req.body.report
+  const totalAmount = req.body.totalAmount;
+  const paymentMade = req.body.paymentMade;
+  const paid = req.body.paid;
+  const soldAt = req.body.soldAt; 
+  const dueDate = req.body.dueDate;
+
   const createdAt = req.body.createdAt; 
+
+  var reports =  {
+    report: report,
+    totalAmount: totalAmount,
+    paymentMade: paymentMade,
+    paid: paid,
+    soldAt: soldAt,
+    dueDate: dueDate,
+  }; 
+  
+  const newReports = [reports];
 
   const customer = new Customer({
     name: name,
     phone: phone,
-    reports: reports, 
+    reports: newReports, 
     createdAt: createdAt,
   }); 
   customer.save()
