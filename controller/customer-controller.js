@@ -56,7 +56,7 @@ exports.findCustomer = (req, res, next) => {
 // Add new customer report / sales
 exports.addNewCustomerReport = (req, res, next) => {
   const customerId = req.params.id; 
-  const newReports = req.body;   
+  const newReports = req.body.reports;   
 
   //const totalAmount = req.body.totalAmount;
   //const paymentMade = req.body.paymentMade;
