@@ -68,11 +68,11 @@ exports.addNewCustomerReport = (req, res, next) => {
  
   var reports =  {
     report: report,
-    totalAmount: totalAmount.toString(),
-    paymentMade: paymentMade.toString(),
-    paid: paid.toString(),
-    soldAt: soldAt.toString(),
-    dueDate: dueDate.toString(),
+    totalAmount: totalAmount,
+    paymentMade: paymentMade,
+    paid: paid,
+    soldAt: soldAt,
+    dueDate: dueDate,
   }; 
   
   const newReports = [reports];
