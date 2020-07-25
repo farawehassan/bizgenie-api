@@ -67,7 +67,7 @@ exports.addNewCustomerReport = (req, res, next) => {
   //const paymentReceivedAt = soldAt; 
  
   var reports =  {
-    report: report.toString(),
+    report: report,
     totalAmount: totalAmount.toString(),
     paymentMade: paymentMade.toString(),
     paid: paid.toString(),
