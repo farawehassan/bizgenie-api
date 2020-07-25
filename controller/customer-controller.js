@@ -69,7 +69,7 @@ exports.addNewCustomerReport = (req, res, next) => {
   //} else { 
   //  paymentReceivedAt = soldAt;
   //}
-  
+  console.log(newReports);
 
 
   Customer.findById(customerId)
