@@ -56,20 +56,28 @@ exports.findCustomer = (req, res, next) => {
 // Add new customer report / sales
 exports.addNewCustomerReport = (req, res, next) => {
   const customerId = req.body.id; 
-  const newReports = req.body.reports;   
+  //const newReports = req.body.reports;   
 
-  //const totalAmount = req.body.totalAmount;
-  //const paymentMade = req.body.paymentMade;
-  //const paid = req.body.paid;
-  //const soldAt = req.body.soldAt; 
-  //const dueDate;
-  //const paymentReceivedAt;
-  //if(paid === true){
-  //  dueDate = req.body.dueDate;
-  //} else { 
-  //  paymentReceivedAt = soldAt;
-  //}
-  console.log(newReports);
+  const report = req.body.report
+  const totalAmount = req.body.totalAmount;
+  const paymentMade = req.body.paymentMade;
+  const paid = req.body.paid;
+  const soldAt = req.body.soldAt; 
+  const dueDate = req.body.dueDate;
+  //const paymentReceivedAt = soldAt; 
+ 
+  var reports =  {
+    report: report.toString(),
+    totalAmount: totalAmount.toString(),
+    paymentMade: paymentMade.toString(),
+    paid: paid.toString(),
+    soldAt: soldAt.toString(),
+    dueDate: dueDate.toString(),
+  }; 
+  
+  const newReports = [reports];
+
+  console.log(newReports); 
 
 
   Customer.findById(customerId)
@@ -83,6 +91,7 @@ exports.addNewCustomerReport = (req, res, next) => {
             console.log(err);
             return res.status(500).send({ error: "true", message: "Adding reports to customer failed." });
           } else {
+            console.log(reports);
             console.log(result);
             return res.status(200).send({ error: "false", message: `Reports updated successfully for ${customer.name}` });
           }
