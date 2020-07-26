@@ -6,8 +6,7 @@ const e = require('express');
 exports.addNewCustomer = (req, res, next) => {
   const name = req.body.name;
   const phone = req.body.phone;
-
-  //const reports = req.body.reports;  
+ 
   const report = req.body.report
   const totalAmount = req.body.totalAmount;
   const paymentMade = req.body.paymentMade;
@@ -20,8 +19,7 @@ exports.addNewCustomer = (req, res, next) => {
   var reports; 
 
   if(req.body.dueDate){
-    dueDate = req.body.dueDate;
-    console.log(dueDate);
+    dueDate = req.body.dueDate; 
     reports =  {
       report: report,
       totalAmount: totalAmount,
@@ -32,8 +30,7 @@ exports.addNewCustomer = (req, res, next) => {
     }; 
   }
   else if(req.body.paymentReceivedAt){
-    paymentReceivedAt = req.body.paymentReceivedAt;
-    console.log(paymentReceivedAt);
+    paymentReceivedAt = req.body.paymentReceivedAt; 
     reports =  {
       report: report,
       totalAmount: totalAmount,
@@ -94,8 +91,7 @@ exports.findCustomer = (req, res, next) => {
 
 // Add new customer report / sales
 exports.addNewCustomerReport = (req, res, next) => {
-  const customerId = req.body.id; 
-  //const newReports = req.body.reports;   
+  const customerId = req.body.id;    
 
   const report = req.body.report
   const totalAmount = req.body.totalAmount;
@@ -108,8 +104,7 @@ exports.addNewCustomerReport = (req, res, next) => {
   var reports; 
 
   if(req.body.dueDate){
-    dueDate = req.body.dueDate;
-    console.log(dueDate);
+    dueDate = req.body.dueDate; 
     reports =  {
       report: report,
       totalAmount: totalAmount,
@@ -120,8 +115,7 @@ exports.addNewCustomerReport = (req, res, next) => {
     }; 
   }
   else if(req.body.paymentReceivedAt){
-    paymentReceivedAt = req.body.paymentReceivedAt;
-    console.log(paymentReceivedAt);
+    paymentReceivedAt = req.body.paymentReceivedAt; 
     reports =  {
       report: report,
       totalAmount: totalAmount,
@@ -134,9 +128,6 @@ exports.addNewCustomerReport = (req, res, next) => {
   
   const newReports = [reports];
 
-  console.log(newReports); 
-
-
   Customer.findById(customerId)
     .then(customer => {
       if (!customer) {
@@ -148,8 +139,6 @@ exports.addNewCustomerReport = (req, res, next) => {
             console.log(err);
             return res.status(500).send({ error: "true", message: "Adding reports to customer failed." });
           } else {
-            console.log(reports);
-            console.log(result);
             return res.status(200).send({ error: "false", message: `Reports updated successfully for ${customer.name}` });
           }
         }
