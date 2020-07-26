@@ -13,19 +13,39 @@ exports.addNewCustomer = (req, res, next) => {
   const paymentMade = req.body.paymentMade;
   const paid = req.body.paid;
   const soldAt = req.body.soldAt; 
-  const dueDate = req.body.dueDate;
-
+  var dueDate;
+  var paymentReceivedAt;
   const createdAt = req.body.createdAt; 
 
-  var reports =  {
-    report: report,
-    totalAmount: totalAmount,
-    paymentMade: paymentMade,
-    paid: paid,
-    soldAt: soldAt,
-    dueDate: dueDate,
-  }; 
+  var reports; 
+
+  if(req.body.dueDate){
+    dueDate = req.body.dueDate;
+    console.log(dueDate);
+    reports =  {
+      report: report,
+      totalAmount: totalAmount,
+      paymentMade: paymentMade,
+      paid: paid,
+      soldAt: soldAt,
+      dueDate: dueDate,
+    }; 
+  }
+  else if(req.body.paymentReceivedAt){
+    paymentReceivedAt = req.body.paymentReceivedAt;
+    console.log(paymentReceivedAt);
+    reports =  {
+      report: report,
+      totalAmount: totalAmount,
+      paymentMade: paymentMade,
+      paid: paid,
+      soldAt: soldAt,
+      paymentReceivedAt: paymentReceivedAt,
+    }; 
+  }
   
+
+   
   const newReports = [reports];
 
   const customer = new Customer({
@@ -82,17 +102,35 @@ exports.addNewCustomerReport = (req, res, next) => {
   const paymentMade = req.body.paymentMade;
   const paid = req.body.paid;
   const soldAt = req.body.soldAt; 
-  const dueDate = req.body.dueDate;
-  //const paymentReceivedAt = soldAt; 
- 
-  var reports =  {
-    report: report,
-    totalAmount: totalAmount,
-    paymentMade: paymentMade,
-    paid: paid,
-    soldAt: soldAt,
-    dueDate: dueDate,
-  }; 
+  var dueDate;
+  var paymentReceivedAt; 
+
+  var reports; 
+
+  if(req.body.dueDate){
+    dueDate = req.body.dueDate;
+    console.log(dueDate);
+    reports =  {
+      report: report,
+      totalAmount: totalAmount,
+      paymentMade: paymentMade,
+      paid: paid,
+      soldAt: soldAt,
+      dueDate: dueDate,
+    }; 
+  }
+  else if(req.body.paymentReceivedAt){
+    paymentReceivedAt = req.body.paymentReceivedAt;
+    console.log(paymentReceivedAt);
+    reports =  {
+      report: report,
+      totalAmount: totalAmount,
+      paymentMade: paymentMade,
+      paid: paid,
+      soldAt: soldAt,
+      paymentReceivedAt: paymentReceivedAt,
+    }; 
+  }
   
   const newReports = [reports];
 
