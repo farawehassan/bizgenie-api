@@ -14,6 +14,7 @@ exports.fetchReports = async (req, res, next) => {
 
 // Add new daily reports and update product's current quantity when an item is sold
 exports.addNewDailyReport = (req, res, next) => {
+  const customerName = req.body.customerName;
   const quantity = req.body.quantity;
   const productName = req.body.productName;
   const costPrice = req.body.costPrice;
@@ -22,6 +23,7 @@ exports.addNewDailyReport = (req, res, next) => {
   const paymentMode = req.body.paymentMode;
   const createdAt = req.body.createdAt;
   const report = new Report({
+    customerName: customerName,
     quantity: quantity,
     productName: productName,
     costPrice: costPrice,
