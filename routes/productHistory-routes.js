@@ -4,7 +4,7 @@ const isAuth = require('../middleware/is-Auth');
 const router = express.Router();
 
 // Fetch all product history from the database
-router.get('/fetchProductHistory', isAuth, productHistoryController.fetchCustomers);
+router.get('/fetchProductHistory', isAuth, productHistoryController.fetchProductHistory);
 
 // Fetch a particular product history from the database
 router.get('/findProductHistory/:id', isAuth, productHistoryController.findProductHistory);
