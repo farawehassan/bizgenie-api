@@ -100,6 +100,31 @@ exports.addNewProductToHistory = (req, res, next) => {
     }); 
 }
 
+exports.updateProductName = (req, res, next) => {
+  const productHistoryId = req.body.id;  
+  const productName = req.body.name;
+
+  ProductHistory.findById(productHistoryId)
+    .then(product => {
+      if (!product) {
+        return res.status(422).send({ error: "true", message: "Couldn't find the product with the id specified" });
+      }
+      ProductHistory.findByIdAndUpdate(productHistoryId, { $set: { productName: productName } },
+        function (err, result) {
+          if (err) {
+            console.log(err);
+            return res.status(500).send({ error: "true", message: "Updating product history failed." }); 
+          } else { 
+            return res.status(200).send({ error: "false", message: `Updated to ${productName} successfully` }); 
+          }
+        }
+      );
+    }).catch(err => {
+      console.log(err);
+      return res.status(500).send({ error: "true", message: `Unable to update product name` });
+    });   
+}
+
 // Delete a product history
 exports.deleteHistory = (req, res, next) => {
   const productHistoryId = req.params.id;  
