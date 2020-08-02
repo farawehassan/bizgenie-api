@@ -39,9 +39,7 @@ exports.addNewCustomer = (req, res, next) => {
       soldAt: soldAt,
       paymentReceivedAt: paymentReceivedAt,
     }; 
-  }
-  
-
+  } 
    
   const newReports = [reports];
 
@@ -261,6 +259,5 @@ exports.deleteCustomer = (req, res, next) => {
     })
     .catch(err => { 
       return res.status(500).send({ error: "true", message: "Deleting customer failed." });
-    });
-  
+    }); 
 } 
