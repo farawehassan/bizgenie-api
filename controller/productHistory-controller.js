@@ -4,6 +4,7 @@ const ProductHistory = require('../model/product-history');
 exports.addProductHistory = (req, res, next) => {
   const productName = req.body.productName;
   const initialQty = req.body.initialQty;
+  const qtyReceived = req.body.qtyReceived;
   const currentQty = req.body.currentQty;
   const collectedAt = req.body.collectedAt; 
   const createdAt = req.body.createdAt;
@@ -11,6 +12,7 @@ exports.addProductHistory = (req, res, next) => {
   const productHistory = { 
     productName: productName,
     initialQty: initialQty,
+    qtyReceived: qtyReceived,
     currentQty: currentQty,
     collectedAt: collectedAt, 
   };  
@@ -64,12 +66,14 @@ exports.addNewProductToHistory = (req, res, next) => {
   const productHistoryId = req.body.id;     
   const productName = req.body.productName;
   const initialQty = req.body.initialQty;
+  const qtyReceived = req.body.qtyReceived;
   const currentQty = req.body.currentQty;
   const collectedAt = req.body.collectedAt;  
 
   const productHistory = { 
     productName: productName,
     initialQty: initialQty,
+    qtyReceived: qtyReceived,
     currentQty: currentQty,
     collectedAt: collectedAt, 
   };  
