@@ -9,8 +9,7 @@ exports.addProductHistory = (req, res, next) => {
   const collectedAt = req.body.collectedAt; 
   const createdAt = req.body.createdAt;
 
-  const productHistory = { 
-    productName: productName,
+  const productHistory = {  
     initialQty: initialQty,
     qtyReceived: qtyReceived,
     currentQty: currentQty,
@@ -20,6 +19,7 @@ exports.addProductHistory = (req, res, next) => {
   const newProductHistory = [productHistory];
 
   const product = new ProductHistory({  
+    productName: productName,
     products: newProductHistory, 
     createdAt: createdAt,
   }); 
@@ -63,15 +63,13 @@ exports.findProductHistory = (req, res, next) => {
 
 // Add new history to product history
 exports.addNewProductToHistory = (req, res, next) => {
-  const productHistoryId = req.body.id;     
-  const productName = req.body.productName;
+  const productHistoryId = req.body.id;  
   const initialQty = req.body.initialQty;
   const qtyReceived = req.body.qtyReceived;
   const currentQty = req.body.currentQty;
   const collectedAt = req.body.collectedAt;  
 
-  const productHistory = { 
-    productName: productName,
+  const productHistory = {  
     initialQty: initialQty,
     qtyReceived: qtyReceived,
     currentQty: currentQty,

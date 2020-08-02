@@ -3,9 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productHistorySchema = new Schema({
+  productName: {
+    type: String,
+    required: true
+  },
   products: [
-    { 
-      productName: { type: String, required: true },
+    {  
       initialQty: { type: Number, required: true },
       qtyReceived: { type: Number, required: true }, 
       currentQty: { type: Number, required: true }, 
