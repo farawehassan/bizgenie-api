@@ -12,6 +12,7 @@ const reports = require('./routes/report-routes');
 const storeDetails = require('./routes/storeDetails-routes');
 const supply = require('./routes/supply-routes');
 const customer = require('./routes/customer-routes');
+const productHistory = require('./routes/productHistory-routes');
 const connectDb = require("./connection/database");
 
 // parse application/json
@@ -31,6 +32,7 @@ app.use('/product', products);
 app.use('/report', reports);
 app.use('/supply', supply);
 app.use('/customer', customer);
+app.use('/history', productHistory);
 app.use(storeDetails);
 
 // create a write stream (in append mode)

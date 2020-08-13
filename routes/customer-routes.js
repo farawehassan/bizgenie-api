@@ -13,7 +13,7 @@ router.get('/fetchCustomer/:id', isAuth, customerController.findCustomer);
 router.post('/addNewCustomer', isAuth, customerController.addNewCustomer);
 
 // Add new reports of customer to the database
-router.post('/addNewCustomerReports/:id', isAuth, customerController.addNewCustomerReport);
+router.post('/addNewCustomerReports', isAuth, customerController.addNewCustomerReport);
 
 // Update a particular report details of a customer
 router.put('/updateCustomerReport', isAuth, customerController.updateCustomerReport);

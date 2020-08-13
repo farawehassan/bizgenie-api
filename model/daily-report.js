@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
+  customerName: {
+    type: String,
+    required: true,
+  },
   quantity: {
     type: Number,
     required: true,
