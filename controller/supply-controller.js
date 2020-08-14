@@ -4,16 +4,14 @@ const { validationResult } = require('express-validator');
 // Add new supply details
 exports.addNewSupply = (req, res, next) => {
   const dealer = req.body.dealer;
-  const amount = req.body.amount;
-  const products = req.body.products;
+  const amount = req.body.amount;  
   const notes = req.body.notes;
   const received = req.body.received;
   const createdAt = req.body.createdAt;
 
   const supply = new Supply({
     dealer: dealer,
-    amount: amount,
-    products: products,
+    amount: amount, 
     notes: notes,
     received: received,
     createdAt: createdAt,
@@ -61,8 +59,7 @@ exports.findSupply = (req, res, next) => {
 exports.updateSupply = (req, res, next) => {
   const supplyId = req.body.id;
   const dealer = req.body.dealer;
-  const amount = req.body.amount;
-  const products = req.body.products;
+  const amount = req.body.amount; 
   const notes = req.body.notes;
   const received = req.body.received;
 
@@ -74,8 +71,7 @@ exports.updateSupply = (req, res, next) => {
       Supply.findByIdAndUpdate(supplyId, {
         $set: {
           dealer: dealer,
-          amount: amount,
-          products: products,
+          amount: amount, 
           notes: notes,
           received: received,
         }

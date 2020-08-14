@@ -10,12 +10,7 @@ const supplySchema = new Schema({
   amount: {
     type: Number,
     required: true
-  },
-  products: {
-    type: Schema.Types.Mixed,
-    required: true,
-    default : []
-  },
+  },  
   notes: String,  
   received: {
     type: Boolean,
