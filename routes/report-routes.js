@@ -14,7 +14,7 @@ router.post('/addNewReport', isAuth, reportController.addNewDailyReport);
 router.put('/updateReportName', isAuth, reportController.updateDailyReportName);
 
 // Delete a report from the database 
-router.delete('/deleteReport/:id', isAuth, reportController.deleteDailyReport);
+router.delete('/deleteReport/:time/:customerName/:productName', isAuth, reportController.deleteDailyReport);
 
 module.exports = router;
  
