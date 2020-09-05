@@ -28,6 +28,6 @@ router.put('/settlePaymentReport', isAuth, customerController.settlePaymentRepor
 router.delete('/deleteCustomer/:id', isAuth, customerController.deleteCustomer); 
 
 // Delete a customer 
-router.delete('/deleteCustomerReport/:id', isAuth, customerController.deleteCustomerReport); 
+router.delete('/deleteCustomerReport/:customerId/:reportId', isAuth, customerController.deleteCustomerReport); 
  
 module.exports = router;
