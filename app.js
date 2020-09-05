@@ -15,6 +15,14 @@ const customer = require('./routes/customer-routes');
 const productHistory = require('./routes/productHistory-routes');
 const connectDb = require("./connection/database");
 
+process.on('uncaughtException', (err) => {
+  // eslint-disable-next-line no-console
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  // eslint-disable-next-line no-console
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 // parse application/json
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded 
@@ -46,15 +54,29 @@ app.use(compression());
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }))
 
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 3000;
+
+let server;
 
 connectDb()
   .then(() => {
-    app.listen(port, () => {
-      console.log("Bizgenie api running");
+    server = app.listen(port, () => {
+      // eslint-disable-next-line no-console
+      console.log(`App running on port ${port}...`);
     });
   })
   .catch(err => {
     console.log("Database connection failed");
+  });
+
+
+  process.on('unhandledRejection', (err) => {
+    // eslint-disable-next-line no-console
+    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+    // eslint-disable-next-line no-console
+    console.log(err.name, err.message);
+    server.close(() => {
+      process.exit(1);
+    });
   });
 
