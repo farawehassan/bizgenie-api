@@ -1,5 +1,6 @@
 const Report = require('../model/daily-report');
 const Product = require('../model/product');
+const Customer = require('../model/customer');
 
 // Fetch all reports
 exports.fetchReports = async (req, res, next) => {
@@ -33,7 +34,7 @@ exports.addNewDailyReport = (req, res, next) => {
     createdAt: createdAt
   });
   report.save()
-    .then(savedReport => { 
+    .then(savedReport => {
       Product.find({ productName: productName })
         .then(product => {
           if (!product) {
@@ -42,7 +43,7 @@ exports.addNewDailyReport = (req, res, next) => {
                 return res.status(401).send({ error: "true", message: "Saving product failed." });
               })
             return res.status(401).send({ error: "true", message: "Saving product failed." });
-          } 
+          }
           Product.findByIdAndUpdate({ _id: product[0]._id }, { currentQty: (product[0].currentQty - parseFloat(quantity)) },
             function (err, result) {
               if (err) {
@@ -74,23 +75,25 @@ exports.updateDailyReportName = async (req, res, next) => {
   const updatedName = req.body.updatedName;
 
   try {
-    await Report.updateMany({'productName': productName}, { $set: { 
-      'productName': updatedName,
-    } },
+    await Report.updateMany({ 'productName': productName }, {
+      $set: {
+        'productName': updatedName,
+      }
+    },
       function (err, result) {
         if (err) {
           console.log(err);
-          return res.status(500).send({ error: "true", message: "Updating report product name failed." });            
+          return res.status(500).send({ error: "true", message: "Updating report product name failed." });
         } else {
           return res.status(200).send({ error: "false", message: `Updated report product name successfully` });
         }
       }
-    ); 
+    );
   } catch (error) {
     console.log(err);
     return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
   }
- 
+
 }
 
 // Delete daily report product and update product's current quantity
@@ -99,29 +102,29 @@ exports.deleteDailyReport = (req, res, next) => {
 
   Report.findById(id)
     .then(report => {
-      if(!report){
+      if (!report) {
         return res.status(422).send({ error: "true", message: "Couldn't find the report with the id specified" });
-      } 
+      }
       Product.find({ productName: report.productName })
         .then(product => {
-          if (!product) { 
+          if (!product) {
             return res.status(401).send({ error: "true", message: "Deleting report failed." });
-          } 
+          }
           Product.findByIdAndUpdate({ _id: product[0]._id }, { currentQty: (product[0].currentQty + report.quantity) },
             function (err, result) {
               if (err) {
-                console.log(err); 
+                console.log(err);
                 return res.status(500).send({ error: "true", message: "Deleted report failed." });
               } else {
                 Report.findByIdAndDelete(id)
-                .then(savedReport => { 
-                  return res.status(200).send({ error: "false", message: `Deleted successfully` });
-                })
-                .catch(err => {
-                  return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
-                }); 
+                  .then(savedReport => {
+                    return res.status(200).send({ error: "false", message: `Deleted successfully` });
+                  })
+                  .catch(err => {
+                    return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
+                  });
               }
-            }
+            } 
           );
         })
         .catch(err => {
@@ -131,7 +134,6 @@ exports.deleteDailyReport = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-      return res.status(500).send({ error: "true", message: `Unable to delete report`});    
-    });  
- 
+      return res.status(500).send({ error: "true", message: `Unable to delete report` });
+    });
 }

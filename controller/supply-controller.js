@@ -4,18 +4,40 @@ const { validationResult } = require('express-validator');
 // Add new supply details
 exports.addNewSupply = (req, res, next) => {
   const dealer = req.body.dealer;
-  const amount = req.body.amount;  
+  const amount = req.body.amount; 
+  const foc = req.body.foc;   
+  var focRate;
+  var focPayment;
   const notes = req.body.notes;
   const received = req.body.received;
   const createdAt = req.body.createdAt;
 
-  const supply = new Supply({
-    dealer: dealer,
-    amount: amount, 
-    notes: notes,
-    received: received,
-    createdAt: createdAt,
-  });
+  var supply;
+
+  if(foc === true){
+    focRate = req.body.focRate; 
+    focPayment = req.body.focPayment;
+    supply = new Supply({
+      dealer: dealer,
+      amount: amount, 
+      foc: foc,
+      focRate: focRate,
+      focPayment: focPayment,
+      notes: notes,
+      received: received,
+      createdAt: createdAt,
+    });
+  }
+  else if(foc === false){
+    supply = new Supply({
+      dealer: dealer,
+      amount: amount, 
+      foc: foc,
+      notes: notes,
+      received: received,
+      createdAt: createdAt,
+    });    
+  } 
 
   supply.save()
     .then(result => {

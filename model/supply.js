@@ -11,6 +11,12 @@ const supplySchema = new Schema({
     type: Number,
     required: true
   },  
+  foc: {
+    type: Boolean,
+    required: true
+  },
+  focRate: Number,
+  focPayment: Number,
   notes: String,  
   received: {
     type: Boolean,
