@@ -108,7 +108,6 @@ exports.deleteDailyReport = (req, res, next) => {
         console.log(err);
         return res.status(422).send({ error: "true", message: "Couldn't find the report with the time specified" });
       }
-      console.log(report);
       if (report.productName === product && report.customerName === customer) {
         Product.find({ productName: report.productName })
           .then(product => {
