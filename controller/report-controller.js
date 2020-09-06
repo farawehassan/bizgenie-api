@@ -98,12 +98,17 @@ exports.updateDailyReportName = async (req, res, next) => {
 
 // Delete daily report product and update product's current quantity
 exports.deleteDailyReport = (req, res, next) => {
+  console.log(req.params.time);
+  console.log(req.params.customerName);
+  console.log(req.params.productName);
+
   const time = req.params.time;
   const customer = req.params.customerName;
   const product = req.params.productName;
 
   Report.findOne({ createdAt: time }, function (err, report) {
     if (err) {
+      console.log(err);
       return res.status(422).send({ error: "true", message: "Couldn't find the report with the id specified" });
     }
     if (report.productName === product && report.customerName === customer) {

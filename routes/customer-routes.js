@@ -23,11 +23,11 @@ router.put('/updatePaymentMadeReport', isAuth, customerController.updatePaymentM
 
 // Settle a particular report payment made of a customer
 router.put('/settlePaymentReport', isAuth, customerController.settlePaymentReport);
+
+// Delete a customer's report
+router.put('/deleteCustomerReport', isAuth, customerController.removeCustomerReport); 
  
 // Delete a customer 
 router.delete('/deleteCustomer/:id', isAuth, customerController.deleteCustomer); 
-
-// Delete a customer 
-router.delete('/deleteCustomerReport/:customerId/:reportId', isAuth, customerController.deleteCustomerReport); 
  
 module.exports = router;

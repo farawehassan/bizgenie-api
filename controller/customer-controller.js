@@ -267,9 +267,9 @@ exports.deleteCustomer = (req, res, next) => {
 }
 
 // Delete a customer's reports
-exports.deleteCustomerReport = (req, res, next) => {
-  const customerId = req.params.customerId;
-  const reportId = req.params.reportId;
+exports.removeCustomerReport = (req, res, next) => {
+  const customerId = req.body.customerId;
+  const reportId = req.body.reportId;
 
   Customer.update({ _id: customerId }, { "$pull": { "reports": { "_id": reportId } } },
    { safe: true, multi: true }, function (err, obj) {
