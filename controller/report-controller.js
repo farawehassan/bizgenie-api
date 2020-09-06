@@ -98,49 +98,52 @@ exports.updateDailyReportName = async (req, res, next) => {
 
 // Delete daily report product and update product's current quantity
 exports.deleteDailyReport = (req, res, next) => {
-  console.log(req.params.time);
-  console.log(req.params.customerName);
-  console.log(req.params.productName);
-
   const time = req.params.time;
   const customer = req.params.customerName;
   const product = req.params.productName;
 
-  Report.findOne({ createdAt: time }, function (err, report) {
-    if (err) {
-      console.log(err);
-      return res.status(422).send({ error: "true", message: "Couldn't find the report with the id specified" });
-    }
-    if (report.productName === product && report.customerName === customer) {
-      Product.find({ productName: report.productName })
-        .then(product => {
-          if (!product) {
-            return res.status(401).send({ error: "true", message: "Deleting report failed." });
-          }
-          Product.findByIdAndUpdate({ _id: product[0]._id }, { currentQty: (product[0].currentQty + report.quantity) },
-            function (err, result) {
-              if (err) {
-                console.log(err);
-                return res.status(500).send({ error: "true", message: "Deleted report failed." });
-              } else {
-                Report.findOneAndDelete({ createdAt: time }, function (err, docs) {
-                  if (err) {
-                    console.log(err);
-                    return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
-                  }
-                  else {
-                    return res.status(200).send({ error: "false", message: `Deleted successfully` });
-                  }
-                });
-              }
+  try {
+    Report.findOne({ createdAt: time }, function (err, report) {
+      if (err) {
+        console.log(err);
+        return res.status(422).send({ error: "true", message: "Couldn't find the report with the time specified" });
+      }
+      console.log(report);
+      if (report.productName === product && report.customerName === customer) {
+        Product.find({ productName: report.productName })
+          .then(product => {
+            if (!product) {
+              return res.status(401).send({ error: "true", message: "Deleting report failed." });
             }
-          );
-        })
-        .catch(err => {
-          console.log(err);
-          return res.status(500).send({ error: "true", message: `Database operation failed, please try again` });
-        });
-    }
-
-  });
+            Product.findByIdAndUpdate({ _id: product[0]._id }, { currentQty: (product[0].currentQty + report.quantity) },
+              function (err, result) {
+                if (err) {
+                  console.log(err);
+                  return res.status(500).send({ error: "true", message: "Deleted report failed." });
+                } else {
+                  Report.findOneAndDelete({ createdAt: time }, function (err, docs) {
+                    if (err) {
+                      console.log(err);
+                      return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
+                    }
+                    else {
+                      return res.status(200).send({ error: "false", message: `Deleted successfully` });
+                    }
+                  });
+                }
+              }
+            );
+          })
+          .catch(err => {
+            console.log(err);
+            return res.status(500).send({ error: "true", message: `Database operation failed, please try again` });
+          });
+      }
+  
+    });
+  } catch (error) {
+    console.log(err);
+    return res.status(422).send({ error: "true", message: "Couldn't find the report with the time specified" });
+  }
+  
 }

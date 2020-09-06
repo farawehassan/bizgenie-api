@@ -271,7 +271,7 @@ exports.removeCustomerReport = (req, res, next) => {
   const customerId = req.body.customerId;
   const reportId = req.body.reportId;
 
-  Customer.update({ _id: customerId }, { "$pull": { "reports": { "_id": reportId } } },
+  Customer.updateOne({ _id: customerId }, { "$pull": { "reports": { "_id": reportId } } },
    { safe: true, multi: true }, function (err, obj) {
     if (err) {
       console.log(err);
