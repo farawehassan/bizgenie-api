@@ -15,7 +15,7 @@ const supplySchema = new Schema({
     type: Boolean,
     required: true
   },
-  focRate: Number,
+  focRate: String,
   focPayment: Number,
   notes: String,  
   received: {
