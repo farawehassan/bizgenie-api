@@ -10,12 +10,11 @@ exports.addNewSupply = (req, res, next) => {
   const received = req.body.received;
   const createdAt = req.body.createdAt;
 
-  let supply;
-
-  if(foc === true){
+  if(req.body.foc === true){
     const focRate = req.body.focRate; 
     const focPayment = req.body.focPayment;
-    supply = new Supply({
+
+    const focSupply = new Supply({
       dealer: dealer,
       amount: amount, 
       foc: foc,
@@ -25,20 +24,8 @@ exports.addNewSupply = (req, res, next) => {
       received: received,
       createdAt: createdAt,
     });
-  }
-  else if(foc === false){
-    supply = new Supply({
-      dealer: dealer,
-      amount: amount, 
-      foc: foc,
-      notes: notes,
-      received: received,
-      createdAt: createdAt,
-    });    
-  } 
-  console.log(supply);
-
-  supply.save()
+    console.log(focSupply);
+    focSupply.save()
     .then(result => {
       return res.status(200).send({ error: "false", message: `Supply was successfully added` });
     })
@@ -46,6 +33,28 @@ exports.addNewSupply = (req, res, next) => {
       console.log(err);
       return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
     });
+
+  }
+  else if(req.body.foc === false){
+    const normalSupply = new Supply({
+      dealer: dealer,
+      amount: amount, 
+      foc: foc,
+      notes: notes,
+      received: received,
+      createdAt: createdAt,
+    }); 
+    console.log(normalSupply);
+    normalSupply.save()
+    .then(result => {
+      return res.status(200).send({ error: "false", message: `Supply was successfully added` });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
+    });   
+  } 
+  
 }
 
 // Fetch all supply details
