@@ -2,58 +2,62 @@ const Supply = require('../model/supply');
 const { validationResult } = require('express-validator');
 
 // Add new supply details
-exports.addNewSupply = (req, res, next) => {
+exports.addNewNormalSupply = (req, res, next) => {
   const dealer = req.body.dealer;
   const amount = req.body.amount; 
   const foc = req.body.foc;   
   const notes = req.body.notes;
   const received = req.body.received;
   const createdAt = req.body.createdAt;
+  
+  const normalSupply = new Supply({
+    dealer: dealer,
+    amount: amount, 
+    foc: foc,
+    notes: notes,
+    received: received,
+    createdAt: createdAt,
+  }); 
+  console.log(normalSupply);
+  normalSupply.save()
+  .then(result => {
+    return res.status(200).send({ error: "false", message: `Supply was successfully added` });
+  })
+  .catch(err => {
+    console.log(err);
+    return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
+  });   
+}
 
-  if(req.body.foc === true){
-    const focRate = req.body.focRate; 
-    const focPayment = req.body.focPayment;
+exports.addNewFOCSupply = (req, res, next) => {
+  const dealer = req.body.dealer;
+  const amount = req.body.amount; 
+  const foc = req.body.foc;   
+  const focRate = req.body.focRate; 
+  const focPayment = req.body.focPayment;
+  const notes = req.body.notes;
+  const received = req.body.received;
+  const createdAt = req.body.createdAt;
 
-    const focSupply = new Supply({
-      dealer: dealer,
-      amount: amount, 
-      foc: foc,
-      focRate: focRate,
-      focPayment: focPayment,
-      notes: notes,
-      received: received,
-      createdAt: createdAt,
-    });
-    console.log(focSupply);
-    focSupply.save()
-    .then(result => {
-      return res.status(200).send({ error: "false", message: `Supply was successfully added` });
-    })
-    .catch(err => {
-      console.log(err);
-      return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
-    });
-
-  }
-  else if(req.body.foc === false){
-    const normalSupply = new Supply({
-      dealer: dealer,
-      amount: amount, 
-      foc: foc,
-      notes: notes,
-      received: received,
-      createdAt: createdAt,
-    }); 
-    console.log(normalSupply);
-    normalSupply.save()
-    .then(result => {
-      return res.status(200).send({ error: "false", message: `Supply was successfully added` });
-    })
-    .catch(err => {
-      console.log(err);
-      return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
-    });   
-  } 
+  const focSupply = new Supply({
+    dealer: dealer,
+    amount: amount, 
+    foc: foc,
+    focRate: focRate,
+    focPayment: focPayment,
+    notes: notes,
+    received: received,
+    createdAt: createdAt,
+  });
+  console.log(focSupply);
+  focSupply.save()
+  .then(result => {
+    return res.status(200).send({ error: "false", message: `Supply was successfully added` });
+  })
+  .catch(err => {
+    console.log(err);
+    return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
+  });
   
 }
 

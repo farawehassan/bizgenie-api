@@ -10,7 +10,10 @@ router.get('/fetchAllSupplies', isAuth, supplyController.fetchSupplies);
 router.get('/fetchSupply/:id', isAuth, supplyController.findSupply);
 
 // Add new product to the database
-router.post('/addNewSupply', isAuth, supplyController.addNewSupply);
+router.post('/addNormalSupply', isAuth, supplyController.addNewNormalSupply);
+
+// Add new product to the database
+router.post('/addFOCSupply', isAuth, supplyController.addNewFOCSupply);
 
 // Update a product's details in the database
 router.put('/editSupply', isAuth, supplyController.updateSupply);
