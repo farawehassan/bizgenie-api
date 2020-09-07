@@ -9,7 +9,7 @@ exports.addNewNormalSupply = (req, res, next) => {
   const notes = req.body.notes;
   const received = req.body.received;
   const createdAt = req.body.createdAt;
-  
+
   const normalSupply = new Supply({
     dealer: dealer,
     amount: amount, 
@@ -18,7 +18,6 @@ exports.addNewNormalSupply = (req, res, next) => {
     received: received,
     createdAt: createdAt,
   }); 
-  console.log(normalSupply);
   normalSupply.save()
   .then(result => {
     return res.status(200).send({ error: "false", message: `Supply was successfully added` });
@@ -49,7 +48,6 @@ exports.addNewFOCSupply = (req, res, next) => {
     received: received,
     createdAt: createdAt,
   });
-  console.log(focSupply);
   focSupply.save()
   .then(result => {
     return res.status(200).send({ error: "false", message: `Supply was successfully added` });
