@@ -36,6 +36,7 @@ exports.addNewSupply = (req, res, next) => {
       createdAt: createdAt,
     });    
   } 
+  console.log(supply);
 
   supply.save()
     .then(result => {

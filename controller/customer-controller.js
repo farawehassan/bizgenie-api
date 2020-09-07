@@ -1,6 +1,5 @@
 const Customer = require('../model/customer');
 const { validationResult } = require('express-validator');
-const e = require('express');
 
 // Add new customer
 exports.addNewCustomer = (req, res, next) => {
