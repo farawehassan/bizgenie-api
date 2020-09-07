@@ -5,19 +5,17 @@ const { validationResult } = require('express-validator');
 exports.addNewSupply = (req, res, next) => {
   const dealer = req.body.dealer;
   const amount = req.body.amount; 
-  const foc = req.body.foc;   
-  var focRate;
-  var focPayment;
+  const foc = req.body.foc;  
   const notes = req.body.notes;
   const received = req.body.received;
   const createdAt = req.body.createdAt;
 
-  var supply;
+  let supply;
 
   if(foc === true){
-    focRate = req.body.focRate; 
-    focPayment = req.body.focPayment;
-    supply = new Supply({
+    const focRate = req.body.focRate; 
+    const focPayment = req.body.focPayment;
+    const supply = new Supply({
       dealer: dealer,
       amount: amount, 
       foc: foc,
@@ -27,19 +25,7 @@ exports.addNewSupply = (req, res, next) => {
       received: received,
       createdAt: createdAt,
     });
-  }
-  else if(foc === false){
-    supply = new Supply({
-      dealer: dealer,
-      amount: amount, 
-      foc: foc,
-      notes: notes,
-      received: received,
-      createdAt: createdAt,
-    });    
-  } 
-
-  supply.save()
+    supply.save()
     .then(result => {
       return res.status(200).send({ error: "false", message: `Supply was successfully added` });
     })
@@ -47,6 +33,26 @@ exports.addNewSupply = (req, res, next) => {
       console.log(err);
       return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
     });
+
+  }
+  else if(foc === false){
+    const supply = new Supply({
+      dealer: dealer,
+      amount: amount, 
+      foc: foc,
+      notes: notes,
+      received: received,
+      createdAt: createdAt,
+    });
+    supply.save()
+    .then(result => {
+      return res.status(200).send({ error: "false", message: `Supply was successfully added` });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(500).send({ error: "true", message: "Database operation failed, please try again" });
+    });    
+  } 
 }
 
 // Fetch all supply details
