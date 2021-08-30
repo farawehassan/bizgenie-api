@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const compression = require('compression');
 const morgan = require('morgan');
+const myserver = require('./routes/server');
 const auth = require('./routes/auth-routes');
 const products = require('./routes/product-routes');
 const reports = require('./routes/report-routes');
@@ -14,6 +15,8 @@ const supply = require('./routes/supply-routes');
 const customer = require('./routes/customer-routes');
 const productHistory = require('./routes/productHistory-routes');
 const connectDb = require("./connection/database");
+const dotenv = require('dotenv');
+dotenv.config({ path: 'config.env' });
 
 process.on('uncaughtException', (err) => {
   // eslint-disable-next-line no-console
@@ -35,6 +38,8 @@ app.all('/*', function (req, res, next) {
   next();
 });
 
+// Routes
+app.use('', myserver);
 app.use('/authentication', auth);
 app.use('/product', products);
 app.use('/report', reports);
